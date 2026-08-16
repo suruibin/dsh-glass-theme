@@ -81,3 +81,8 @@ test('wallpaper uses IndexedDB and browser file input', () => {
   assert.match(clientJs, /12 \* 1024 \* 1024/)
   assert.match(clientJs, /dsh-glass-wallpaper/)
 })
+
+test('wallpaper layering and controls are wired', () => {
+  assert.match(clientJs, /data-dsh-glass-wallpaper="1"/)
+  assert.match(clientJs, /data-dsh-wallpaper-name/)
+})
