@@ -5,9 +5,11 @@
 ## 功能
 
 - **主题设置页**(设置 → 主题设置):
-  - 背景透明度滑块(0.4–1)
+  - 玻璃主题效果总开关:关闭后透明面板 / 壁纸全部失效,恢复原生外观,便于使用其他皮肤(如皮肤中心)
+  - 背景透明度滑块(0–100%)
   - 光标特效:启用开关 + 侧边栏/右侧两栏模式(星光/水滴/飘雪/火花/关闭)
   - 背景壁纸:浏览器选择图片(≤12 MiB),底层模糊铺满,「移除」恢复
+  - 品牌色循环:启用开关 + 间隔可调(3–300 秒,默认 10 秒)
 - **玻璃 UI 样式**:噪点纹理、品牌蓝光晕、浮动圆角侧边栏、细滚动条
 - **输入历史**:输入框 ↑/↓ 回看已发送内容,Enter 记录(上限 50 条,IME 组合期间不误记)
 
@@ -27,10 +29,13 @@ dsh plugin --profile web add dsh-glass-theme
 
 | 数据 | 位置 |
 |---|---|
+| 玻璃主题效果开关 | localStorage `dsh-glass.enabled` |
 | 背景透明度 | localStorage `dsh-glass.alpha` |
 | 光标特效 | localStorage `dsh-glass.cursorFx` |
 | 输入历史 | localStorage `dsh-glass.inputHistory` |
 | 背景壁纸 | IndexedDB `dsh-glass` / kv |
+| 品牌色循环开关 | localStorage `dsh-glass.brandCycle` |
+| 品牌色循环间隔 | localStorage `dsh-glass.brandInterval` |
 
 ## 开发
 

@@ -51,6 +51,8 @@ test('persisted keys are consistent across client and bundle', () => {
   assert.match(clientJs, /dsh-glass\.cursorFx/)
   assert.match(clientJs, /dsh-glass\.inputHistory/)
   assert.match(clientJs, /dsh-glass\.wallpaper/)
+  assert.match(clientJs, /dsh-glass\.enabled/)
+  assert.match(clientJs, /dsh-glass\.brandInterval/)
 })
 
 test('bundle declares its cordis inject services', () => {
@@ -65,7 +67,7 @@ test('bundle stays ES5 (no const/let/arrow/template)', () => {
 })
 
 test('glass stylesheet is populated', () => {
-  assert.match(clientJs, /html::after/)
+  assert.match(clientJs, /html\[data-dsh-glass-enabled="1"\]::after/)
   assert.match(clientJs, /::-webkit-scrollbar/)
   assert.match(clientJs, /_sidebarCol/)
 })
@@ -73,14 +75,14 @@ test('glass stylesheet is populated', () => {
 test('alpha constants and keys are exported', () => {
   assert.match(clientJs, /DEFAULT_ALPHA\s*=\s*0\.4/)
   assert.match(clientJs, /applyAlpha\(/)
-  assert.match(clientJs, /html \{ background-color: transparent !important; \}/)
+  assert.match(clientJs, /html\[data-dsh-glass-enabled="1"\] \{ background-color: transparent !important; \}/)
 })
 
 test('panel tokens become translucent glass following the alpha', () => {
   assert.match(clientJs, /--dsw-alias-bg-base: rgba\(15, 17, 23, var\(--dsh-glass-alpha/)
   assert.match(clientJs, /--dsw-specific-sidebar-fill/)
-  assert.match(clientJs, /body\[data-ds-dark-theme\]/)
-  assert.match(clientJs, /body:not\(\[data-ds-dark-theme\]\)/)
+  assert.match(clientJs, /body\[data-dsh-glass-enabled="1"\]\[data-ds-dark-theme\]/)
+  assert.match(clientJs, /body\[data-dsh-glass-enabled="1"\]:not\(\[data-ds-dark-theme\]\)/)
 })
 
 test('cursor fx config and event are wired', () => {
@@ -108,12 +110,31 @@ test('input history navigation is wired', () => {
   assert.match(clientJs, /dsh-glass\.inputHistory/)
 })
 
+test('glass effects master switch gates transparency and wallpaper', () => {
+  assert.match(clientJs, /DEFAULT_ENABLED\s*=\s*true/)
+  assert.match(clientJs, /function loadEnabled\(\)/)
+  assert.match(clientJs, /function applyEnabled\(on\)/)
+  assert.match(clientJs, /data-dsh-glass-enabled/)
+  assert.match(clientJs, /data-dsh-glass-enabled-control/)
+  assert.match(clientJs, /启用透明面板与背景壁纸/)
+  assert.match(clientJs, /if \(!loadEnabled\(\)\)/)
+  assert.match(clientJs, /applyEnabled\(loadEnabled\(\)\)/)
+})
+
+test('brand color cycle interval is configurable (default 10s)', () => {
+  assert.match(clientJs, /DEFAULT_BRAND_INTERVAL\s*=\s*10/)
+  assert.match(clientJs, /function loadBrandInterval\(\)/)
+  assert.match(clientJs, /loadBrandInterval\(\) \* 1000/)
+  assert.match(clientJs, /KEYS\.brandInterval/)
+  assert.match(clientJs, /间隔\(秒\)/)
+  assert.match(clientJs, /min: '3', max: '300'/)
+})
+
 test('brand color cycle is wired (10s logo/icon rotation)', () => {
   assert.match(clientJs, /dsh-glass\.brandCycle/)
   assert.match(clientJs, /startBrandCycle/)
   assert.match(clientJs, /BRAND_GRAD_ID/)
   assert.match(clientJs, /setInterval\(cycleBrandColors, 1000\)/)
-  assert.match(clientJs, /10000/)
   assert.match(clientJs, /applyRailFish/)
   assert.match(clientJs, /applySidebarIcons/)
 })
