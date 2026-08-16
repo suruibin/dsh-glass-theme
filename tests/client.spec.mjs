@@ -73,7 +73,7 @@ test('glass stylesheet is populated', () => {
 test('alpha constants and keys are exported', () => {
   assert.match(clientJs, /DEFAULT_ALPHA\s*=\s*0\.4/)
   assert.match(clientJs, /applyAlpha\(/)
-  assert.match(clientJs, /html \{ background-color: color-mix\(in srgb/)
+  assert.match(clientJs, /html \{ background-color: transparent !important; \}/)
 })
 
 test('panel tokens become translucent glass following the alpha', () => {
