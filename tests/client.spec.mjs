@@ -108,6 +108,25 @@ test('input history navigation is wired', () => {
   assert.match(clientJs, /dsh-glass\.inputHistory/)
 })
 
+test('brand color cycle is wired (10s logo/icon rotation)', () => {
+  assert.match(clientJs, /dsh-glass\.brandCycle/)
+  assert.match(clientJs, /startBrandCycle/)
+  assert.match(clientJs, /BRAND_GRAD_ID/)
+  assert.match(clientJs, /setInterval\(cycleBrandColors, 1000\)/)
+  assert.match(clientJs, /10000/)
+  assert.match(clientJs, /applyRailFish/)
+  assert.match(clientJs, /applySidebarIcons/)
+})
+
+test('controls use uncontrolled inputs so repeated clicks work', () => {
+  // Controlled checked/value on a static component gets reverted by React on
+  // every interaction (no re-render), making the checkbox clickable once.
+  assert.match(clientJs, /defaultChecked: fx\.enabled/)
+  assert.match(clientJs, /defaultValue: fx\.sidebar/)
+  assert.match(clientJs, /defaultValue: fx\.center/)
+  assert.match(clientJs, /defaultChecked: loadBrandCycle\(\)/)
+})
+
 test('host half exports an apply function for the cordis loader', async () => {
   const m = await import('../lib/index.js')
   assert.equal(typeof m.apply, 'function')
