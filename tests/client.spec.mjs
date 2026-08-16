@@ -125,6 +125,9 @@ test('controls use uncontrolled inputs so repeated clicks work', () => {
   assert.match(clientJs, /defaultValue: fx\.sidebar/)
   assert.match(clientJs, /defaultValue: fx\.center/)
   assert.match(clientJs, /defaultChecked: loadBrandCycle\(\)/)
+  // The alpha slider must be uncontrolled too, or dragging reverts its thumb
+  // to the initial position on every interaction.
+  assert.match(clientJs, /defaultValue: String\(value\)/)
 })
 
 test('host half exports an apply function for the cordis loader', async () => {
