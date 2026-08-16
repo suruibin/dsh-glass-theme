@@ -52,3 +52,9 @@ test('bundle declares its cordis inject services', () => {
 test('bundle stays ES5 (no const/let/arrow/template)', () => {
   assert.doesNotMatch(clientJs, /\bconst\b|\blet\b|=>|`/)
 })
+
+test('glass stylesheet is populated', () => {
+  assert.match(clientJs, /html::after/)
+  assert.match(clientJs, /::-webkit-scrollbar/)
+  assert.match(clientJs, /_sidebarCol/)
+})
