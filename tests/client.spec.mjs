@@ -16,7 +16,7 @@ test('bundle parses as a plain function body', () => {
   assert.doesNotThrow(() => new Function(body), 'client.js must be syntactically valid')
 })
 
-test('bundle id matches package name', () => {
+test('bundle id is dsh-glass', () => {
   assert.match(clientJs, /id:\s*['"]dsh-glass['"]/)
 })
 
@@ -43,4 +43,12 @@ test('persisted keys are consistent across client and bundle', () => {
   assert.match(clientJs, /dsh-glass\.cursorFx/)
   assert.match(clientJs, /dsh-glass\.inputHistory/)
   assert.match(clientJs, /dsh-glass\.wallpaper/)
+})
+
+test('bundle declares its cordis inject services', () => {
+  assert.match(clientJs, /exports\.inject\s*=\s*\[['"]slots['"]\]/)
+})
+
+test('bundle stays ES5 (no const/let/arrow/template)', () => {
+  assert.doesNotMatch(clientJs, /\bconst\b|\blet\b|=>|`/)
 })
