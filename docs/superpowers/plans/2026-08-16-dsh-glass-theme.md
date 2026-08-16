@@ -643,6 +643,8 @@ git commit -m "feat: cursor FX (canvas particles, per-pane modes, live reconfig)
 
 - [ ] **Step 2: 新增壁纸图层辅助 + 控件**
 
+> 注:插件 body 背景为不透明 color-mix(见 Task 4),`z-index:-1` 的壁纸层会被完全盖住。壁纸激活时必须把 body 背景改为透明(`background: transparent !important`),同时保留玻璃 tint 效果(可改为给壁纸层本身加暗色遮罩);壁纸移除时恢复 body 背景规则。
+
 图层注入(仿 wallpaperLayerScript,ensure 逻辑):
 
 ```js
