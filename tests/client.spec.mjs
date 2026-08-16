@@ -101,3 +101,9 @@ test('input history navigation is wired', () => {
   assert.match(clientJs, /setNativeValue/)
   assert.match(clientJs, /dsh-glass\.inputHistory/)
 })
+
+test('host half exports an apply function for the cordis loader', async () => {
+  const m = await import('../lib/index.js')
+  assert.equal(typeof m.apply, 'function')
+  assert.equal(m.name, 'dsh-glass-theme')
+})
