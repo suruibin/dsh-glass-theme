@@ -16,14 +16,14 @@ test('bundle parses as a plain function body', () => {
   assert.doesNotThrow(() => new Function(body), 'client.js must be syntactically valid')
 })
 
-test('bundle id is dsh-glass', () => {
-  assert.match(clientJs, /id:\s*['"]dsh-glass['"]/)
+test('bundle id matches the package name', () => {
+  assert.match(clientJs, /id:\s*['"]dsh-glass-theme['"]/)
 })
 
 test('plugin registers the settings.section slot', () => {
   assert.match(clientJs, /slots\.inject\(['"]settings\.section['"]/)
   assert.match(clientJs, /name:\s*['"]settings\.section['"]/)
-  assert.match(clientJs, /id:\s*['"]dsh-glass['"]/)
+  assert.match(clientJs, /id:\s*['"]dsh-glass-theme['"]/)
 })
 
 test('package.json declares client inject modules', () => {
