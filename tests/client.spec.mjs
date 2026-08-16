@@ -118,6 +118,18 @@ test('brand color cycle is wired (10s logo/icon rotation)', () => {
   assert.match(clientJs, /applySidebarIcons/)
 })
 
+test('browser title-bar theme-color is pinned to the glass theme', () => {
+  // DSH's ThemePresenter mirrors theme-color to the computed body background,
+  // which the plugin makes transparent — Chrome app windows then paint the
+  // title bar black. The plugin must own that meta instead.
+  assert.match(clientJs, /meta\[name="theme-color"\]/)
+  assert.match(clientJs, /THEME_COLOR_DARK\s*=\s*'#0f1117'/)
+  assert.match(clientJs, /THEME_COLOR_LIGHT\s*=\s*'#f5f6f7'/)
+  assert.match(clientJs, /attributeFilter: \['content'\]/)
+  assert.match(clientJs, /startThemeColorWatch/)
+  assert.match(clientJs, /writeThemeColor\(\)/)
+})
+
 test('controls use uncontrolled inputs so repeated clicks work', () => {
   // Controlled checked/value on a static component gets reverted by React on
   // every interaction (no re-render), making the checkbox clickable once.
