@@ -68,3 +68,9 @@ test('alpha constants and keys are exported', () => {
 test('opacity blends against the theme background variable', () => {
   assert.match(clientJs, /var\(--dsw-alias-bg-base\)/)
 })
+
+test('cursor fx config and event are wired', () => {
+  assert.match(clientJs, /dsh-cursor-fx-change/)
+  assert.match(clientJs, /KEYS\.cursorFx/)
+  assert.match(clientJs, /startCursorFx/)
+})
