@@ -58,3 +58,9 @@ test('glass stylesheet is populated', () => {
   assert.match(clientJs, /::-webkit-scrollbar/)
   assert.match(clientJs, /_sidebarCol/)
 })
+
+test('alpha constants and keys are exported', () => {
+  assert.match(clientJs, /DEFAULT_ALPHA\s*=\s*0\.4/)
+  assert.match(clientJs, /applyAlpha\(/)
+  assert.match(clientJs, /color-mix\(in srgb/)
+})
