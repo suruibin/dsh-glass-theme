@@ -54,7 +54,10 @@ test('persisted keys are consistent across client and bundle', () => {
 })
 
 test('bundle declares its cordis inject services', () => {
-  assert.match(clientJs, /exports\.inject\s*=\s*\[['"]slots['"]\]/)
+  // inject must live on the SAME object as apply (a later module.exports
+  // reassignment would drop a standalone exports.inject assignment).
+  assert.match(clientJs, /inject:\s*\[['"]slots['"]\]/)
+  assert.match(clientJs, /module\.exports\s*=\s*\{\s*apply:\s*apply[^}]*inject:\s*\[['"]slots['"]\]/)
 })
 
 test('bundle stays ES5 (no const/let/arrow/template)', () => {
