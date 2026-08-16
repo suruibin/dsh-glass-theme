@@ -64,3 +64,7 @@ test('alpha constants and keys are exported', () => {
   assert.match(clientJs, /applyAlpha\(/)
   assert.match(clientJs, /color-mix\(in srgb/)
 })
+
+test('opacity blends against the theme background variable', () => {
+  assert.match(clientJs, /var\(--dsw-alias-bg-base\)/)
+})
