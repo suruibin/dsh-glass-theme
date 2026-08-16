@@ -86,3 +86,10 @@ test('wallpaper layering and controls are wired', () => {
   assert.match(clientJs, /data-dsh-glass-wallpaper="1"/)
   assert.match(clientJs, /data-dsh-wallpaper-name/)
 })
+
+test('input history navigation is wired', () => {
+  assert.match(clientJs, /ArrowUp/)
+  assert.match(clientJs, /ArrowDown/)
+  assert.match(clientJs, /setNativeValue/)
+  assert.match(clientJs, /dsh-glass\.inputHistory/)
+})
