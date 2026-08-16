@@ -74,3 +74,10 @@ test('cursor fx config and event are wired', () => {
   assert.match(clientJs, /KEYS\.cursorFx/)
   assert.match(clientJs, /startCursorFx/)
 })
+
+test('wallpaper uses IndexedDB and browser file input', () => {
+  assert.match(clientJs, /indexedDB\.open/)
+  assert.match(clientJs, /type\s*=\s*'file'/)
+  assert.match(clientJs, /12 \* 1024 \* 1024/)
+  assert.match(clientJs, /dsh-glass-wallpaper/)
+})
