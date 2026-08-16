@@ -33,6 +33,14 @@ test('package.json declares client inject modules', () => {
   assert.equal(pkg.dsh.client.platform, 'web')
 })
 
+test('package.json ships only lib, patch, and docs', () => {
+  const files = pkg.files
+  assert.ok(Array.isArray(files) && files.length > 0, 'files whitelist must exist')
+  assert.ok(files.includes('lib') && files.includes('cordis.patch.yml'))
+  assert.ok(!files.includes('tests'), 'tests must not ship in the published package')
+  assert.ok(!files.includes('docs'), 'docs must not ship in the published package')
+})
+
 test('cordis patch inserts the bundle id', () => {
   assert.match(patch, /id:\s*dsh-glass/)
   assert.match(patch, /name:\s*['"]?dsh-glass-theme['"]?/)
