@@ -73,11 +73,14 @@ test('glass stylesheet is populated', () => {
 test('alpha constants and keys are exported', () => {
   assert.match(clientJs, /DEFAULT_ALPHA\s*=\s*0\.4/)
   assert.match(clientJs, /applyAlpha\(/)
-  assert.match(clientJs, /color-mix\(in srgb/)
+  assert.match(clientJs, /html \{ background-color: color-mix\(in srgb/)
 })
 
-test('opacity blends against the theme background variable', () => {
-  assert.match(clientJs, /var\(--dsw-alias-bg-base\)/)
+test('panel tokens become translucent glass following the alpha', () => {
+  assert.match(clientJs, /--dsw-alias-bg-base: rgba\(15, 17, 23, var\(--dsh-glass-alpha/)
+  assert.match(clientJs, /--dsw-specific-sidebar-fill/)
+  assert.match(clientJs, /body\[data-ds-dark-theme\]/)
+  assert.match(clientJs, /body:not\(\[data-ds-dark-theme\]\)/)
 })
 
 test('cursor fx config and event are wired', () => {
