@@ -196,8 +196,6 @@ window.__ModuleLoader__.load({
     var exports = module.exports
     var React = require('react')
     var h = React.createElement
-    var useState = React.useState
-    var useEffect = React.useEffect
 
     // ── 常量 ──────────────────────────────────────────────
     var VERSION = '0.1.0'
@@ -212,7 +210,7 @@ window.__ModuleLoader__.load({
     var DEFAULT_FX = { enabled: true, sidebar: 'star', center: 'water' }
 
     // ── 玻璃样式(搬运自 glass.ts ambientStyleScript)────────
-    var GLASS_CSS = null // Task 4 填充
+    var GLASS_CSS = null // Task 3 填充
     function ensureStyle() {
       if (GLASS_CSS === null) return
       var tag = document.getElementById(STYLE_ID)
@@ -256,7 +254,9 @@ window.__ModuleLoader__.load({
       console.log('[dsh-glass] client ready')
     }
 
-    module.exports = { apply: apply, name: 'dsh-glass', version: VERSION, keys: KEYS, defaultAlpha: DEFAULT_ALPHA, defaultFx: DEFAULT_FX }
+    // Declare the services this bundle consumes (cordis inject contract).
+    exports.inject = ['slots']
+    module.exports = { apply: apply, name: 'dsh-glass', version: VERSION }
     return module.exports
   },
 })
@@ -298,7 +298,7 @@ Expected: 一个 JS 数组(每元素一条 CSS 字符串),以 `]` 结尾。把�
 
 把 `lib/client.js` 中:
 ```js
-var GLASS_CSS = null // Task 4 填充
+var GLASS_CSS = null // Task 3 填充
 ```
 替换为:
 ```js
@@ -642,6 +642,10 @@ git commit -m "feat: cursor FX (canvas particles, per-pane modes, live reconfig)
 ```
 
 - [ ] **Step 2: 新增壁纸图层辅助 + 控件**
+
+> 注:插件 body 背景为不透明 color-mix(见 Task 4),`z-index:-1` 的壁纸层会被完全盖住。壁纸激活时必须把 body 背景改为透明(`background: transparent !important`),同时保留玻璃 tint 效果(可改为给壁纸层本身加暗色遮罩);壁纸移除时恢复 body 背景规则。
+>
+> 取舍:DSH 面板背景为不透明变量,壁纸仅露出于卡片间隙与未覆盖区,不复现 fork 整窗透壁纸效果(浮动玻璃卡 + tinted canvas 设计,接受)。
 
 图层注入(仿 wallpaperLayerScript,ensure 逻辑):
 
