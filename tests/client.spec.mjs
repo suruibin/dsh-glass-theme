@@ -53,6 +53,7 @@ test('persisted keys are consistent across client and bundle', () => {
   assert.match(clientJs, /dsh-glass\.wallpaper/)
   assert.match(clientJs, /dsh-glass\.enabled/)
   assert.match(clientJs, /dsh-glass\.brandInterval/)
+  assert.match(clientJs, /dsh-glass\.desktopEnabled/)
 })
 
 test('bundle declares its cordis inject services', () => {
@@ -119,6 +120,17 @@ test('glass effects master switch gates transparency and wallpaper', () => {
   assert.match(clientJs, /启用透明面板与背景壁纸/)
   assert.match(clientJs, /if \(!loadEnabled\(\)\)/)
   assert.match(clientJs, /applyEnabled\(loadEnabled\(\)\)/)
+})
+
+test('desktop shell (Electron) is isolated by default via its own toggle', () => {
+  assert.match(clientJs, /function isDesktopShell\(\)/)
+  assert.match(clientJs, /window\.dshDesktop/)
+  assert.match(clientJs, /dsh-glass\.desktopEnabled/)
+  assert.match(clientJs, /DEFAULT_DESKTOP_ENABLED\s*=\s*false/)
+  assert.match(clientJs, /isDesktopShell\(\) && !loadDesktopEnabled\(\)/)
+  assert.match(clientJs, /registerSettings\(ctx\)/)
+  assert.match(clientJs, /data-dsh-desktop-control/)
+  assert.match(clientJs, /在桌面版中启用玻璃主题/)
 })
 
 test('brand color cycle interval is configurable (default 10s)', () => {

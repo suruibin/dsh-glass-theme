@@ -29,6 +29,7 @@ dsh plugin --profile web add dsh-glass-theme
 
 | 数据 | 位置 |
 |---|---|
+| 桌面版(Electron)启用开关 | localStorage `dsh-glass.desktopEnabled` |
 | 玻璃主题效果开关 | localStorage `dsh-glass.enabled` |
 | 背景透明度 | localStorage `dsh-glass.alpha` |
 | 光标特效 | localStorage `dsh-glass.cursorFx` |
